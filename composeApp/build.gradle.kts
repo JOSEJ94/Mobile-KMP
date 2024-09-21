@@ -29,10 +29,13 @@ kotlin {
     }
     
     sourceSets {
-        
+        val koinVersion = "4.0.0"
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(project.dependencies.platform("io.insert-koin:koin-bom:$koinVersion"))
+            implementation("io.insert-koin:koin-core")
+            implementation("io.insert-koin:koin-android")
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -50,6 +53,13 @@ kotlin {
             val precomposeVersion = "1.6.2"
             api("moe.tlaster:precompose:$precomposeVersion")
             api("moe.tlaster:precompose-viewmodel:$precomposeVersion")
+
+            // Koin
+            implementation(project.dependencies.platform("io.insert-koin:koin-bom:$koinVersion"))
+            implementation("io.insert-koin:koin-core")
+            implementation("io.insert-koin:koin-compose")
+            api("moe.tlaster:precompose-koin:$precomposeVersion")
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
