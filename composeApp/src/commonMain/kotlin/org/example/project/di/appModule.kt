@@ -1,5 +1,6 @@
 package org.example.project.di
 
+import com.expenseApp.db.AppDatabase
 import org.example.project.data.ExpenseManager
 import org.example.project.data.ExpenseRepoImp
 import org.example.project.domain.ExpenseRepository
@@ -8,8 +9,8 @@ import org.koin.core.module.dsl.createdAtStart
 import org.koin.core.module.dsl.withOptions
 import org.koin.dsl.module
 
-fun appModule() = module {
+fun appModule(appDatabase: AppDatabase) = module {
     single { ExpenseManager }.withOptions { createdAtStart() }
-    single<ExpenseRepository> { ExpenseRepoImp(get()) }
+    single<ExpenseRepository> { ExpenseRepoImp(get(), appDatabase) }
     factory { ExpensesViewModel(get()) }
 }
